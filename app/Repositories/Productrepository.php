@@ -15,10 +15,13 @@ class Productrepository implements ProductInterface
         })->when($request->filled('filter_user'), function ($q) use ($request) {
             $q->where('user_id', $request->filter_user);
         })
+            ->when($request->filled('filter_date'), function ($q) use ($request) {
+                $q->whereDate('created_at', $request->filter_date);
+            })
             ->when($request->filled('search'), function ($q) use ($request) {
                 $q->where('name', 'LIKE', '%' . $request->search . '%')
-                    ->orWhere('price', 'LIKE', '%' . $request->search . '%');
-                // ->orWhere('phone', 'LIKE', '%' . $request->search . '%');
+                    ->orWhere('price', 'LIKE', '%' . $request->search . '%')
+                    ->orWhere('barcode', 'LIKE', '%' . $request->search . '%');
             })
             ->latest()
             ->paginate(30);
@@ -32,6 +35,7 @@ class Productrepository implements ProductInterface
     {
         return Product::create($data);
     }
+
     public function edit($id)
     {
         return Product::findOrFail($id);
@@ -43,5 +47,9 @@ class Productrepository implements ProductInterface
     public function destroy($id)
     {
         return Product::findOrFail($id)->delete();
+    }
+    public function bulkDelete($ids)
+    {
+        return Product::whereIn('id', $ids)->delete();
     }
 }

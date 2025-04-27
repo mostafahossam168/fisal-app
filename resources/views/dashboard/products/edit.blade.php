@@ -60,6 +60,18 @@
 
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
+                                                                    <label for="barcode"> الباركود</label>
+                                                                    <input type="number" class="form-control mb-3"
+                                                                        name="barcode" id="barcode"
+                                                                        placeholder=" الباركود"
+                                                                        value="{{ $item->barcode }}">
+                                                                    @error('barcode')
+                                                                        <span class="text-danger">{{ $message }}</span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
                                                                     <label for="phone">المستخدم</label>
                                                                     <select name="user_id" id=""
                                                                         class="form-control">
@@ -104,6 +116,18 @@
                                                                     @enderror
                                                                 </div>
                                                             </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="password">الشهادة</label>
+                                                                    <input type="file" class="form-control"
+                                                                        name="certificate" accept="application\pdf" />
+                                                                    <span class="text-danger">pdf only</span>
+                                                                    @error('certificate')
+                                                                        <span class="text-danger">{{ $message }}</span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
                                                                     <label for="description">الوصف</label>

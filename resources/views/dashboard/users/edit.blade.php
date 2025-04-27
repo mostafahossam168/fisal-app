@@ -62,7 +62,7 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="phone">الهاتف</label>
-                                                                    <input type="text" class="form-control mb-3"
+                                                                    <input type="tel" class="form-control mb-3"
                                                                         id="phone" name="phone" placeholder="الهاتف"
                                                                         value="{{ $item->phone }}">
                                                                     @error('phone')

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Requests\ProductRequest;
 use Illuminate\Http\Request;
+use App\Imports\ImportProduct;
+use App\Imports\ProductImport;
 use Illuminate\Routing\Controller;
 use App\Interfaces\ProductInterface;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
@@ -34,13 +37,28 @@ class ProductController extends Controller
         return view('dashboard.products.create');
     }
 
+
+    public function excelProduct(Request $request)
+    {
+        $fields = $request->validate([
+            'excel' => ['required', 'mimes:xlsx,csv'],
+            'user_id' => ['required', 'exists:users,id'],
+        ]);
+
+        // $request->validate()
+
+        Excel::import(new ProductImport($fields['user_id']), $request->file('excel'));
+
+        return   redirect()->route('products.index')->with('success', 'تم حفظ البيانات بنجاح');
+    }
     /**
      * Store a newly created resource in storage.
      */
     public function store(ProductRequest $request)
     {
         $data = $request->validated();
-        $data['image'] = store_file($request->image, 'products');
+        $data['image'] = $request->image ? store_file($request->image, 'products') : null;
+        $data['certificate'] = $request->certificate ? store_file($request->certificate, 'certificates') : null;
         $this->item->store($data);
         return   redirect()->route('products.index')->with('success', 'تم حفظ البيانات بنجاح');
     }
@@ -71,10 +89,20 @@ class ProductController extends Controller
         $item = $this->item->show($id);
         $data = $request->validated();
         if ($request->image) {
-            delete_file($item->image);
+            if ($item->image) {
+                delete_file($item->image);
+            }
             $data['image'] = store_file($request->image, 'products');
         } else {
             unset($data['image']);
+        }
+        if ($request->certificate) {
+            if ($item->certificate) {
+                delete_file($item->certificate);
+            }
+            $data['certificate'] = store_file($request->certificate, 'certificates');
+        } else {
+            unset($data['certificate']);
         }
         $this->item->update($data, $id);
         return   redirect()->route('products.index')->with('success', 'تم حفظ البيانات بنجاح');
@@ -86,8 +114,24 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         $item = $this->item->show($id);
-        delete_file($item->image);
+        if ($item->image) {
+            delete_file($item->image);
+        }
+        if ($item->certificate) {
+            delete_file($item->certificate);
+        }
         $this->item->destroy($id);
         return   redirect()->route('products.index')->with('success', 'تم حفظ البيانات بنجاح');
+    }
+
+
+    public function bulkDelete(Request $request)
+    {
+        // return $request->ids;
+        $ids = explode(',', $request->ids);
+
+        $this->item->bulkDelete($ids);
+
+        return redirect()->route('products.index')->with('success', 'تم حذف المنتجات  بنجاح');
     }
 }

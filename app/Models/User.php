@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Enum\Usertatus;
 use App\Enum\UserStatus;
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -13,7 +14,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
     public $guarded = [];
 
     public function ScopeUsers($query)
@@ -61,5 +62,10 @@ class User extends Authenticatable
             'password' => 'hashed',
             'status' => UserStatus::class,
         ];
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
     }
 }

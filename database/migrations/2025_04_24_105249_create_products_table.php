@@ -17,7 +17,9 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('name');
             $table->decimal('price', 8, 2);
-            $table->string('image');
+            $table->bigInteger('barcode');
+            $table->string('image')->nullable();
+            $table->string('certificate')->nullable();
             $table->tinyInteger('status')->default(StatusProduct::ACTIVE->value);
             $table->longText('description');
             $table->timestamps();

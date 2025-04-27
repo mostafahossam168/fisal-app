@@ -97,7 +97,7 @@
                                             <line x1="16" y1="2" x2="16" y2="6"></line>
                                             <line x1="8" y1="2" x2="8" y2="6"></line>
                                             <line x1="3" y1="10" x2="21" y2="10"></line>
-                                        </svg> {{ $item->created_at->format('d  M') }} </span></td>
+                                        </svg> {{ $item->created_at->format('d-m-Y') }} </span></td>
                                 <td>
                                     <a class="badge badge-light-primary text-start me-2 action-edit"
                                         href="{{ route('users.edit', $item->id) }}"><svg xmlns="http://www.w3.org/2000/svg"

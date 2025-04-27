@@ -14,8 +14,8 @@ class AuthController extends Controller
     }
     public function login(AuthAdminRequest $request)
     {
-        $data =  $request->validated();
-        if (auth()->attempt($data)) {
+        $remember = $request->has('remember') && $request->remember ? true : false;
+        if (auth()->attempt($request->only('email', 'password'))) {
             return redirect()->route('home')->with('success', 'تم تسجيل الدخول بنجاح');
         }
         return redirect()->back()->with('error', 'البيانات غير صحيحه');

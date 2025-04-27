@@ -9,15 +9,17 @@ use App\Http\Controllers\Dashboard\SettingController;
 use App\Http\Controllers\Dashboard\UserController;
 
 // F:\fisal\fisal-app\resources\views\dashboard\auth\sign-in.blade.php
-Route::view('/', 'dashboard.auth.login')->name('login.form');
-Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::view('/', 'dashboard.auth.login')->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
 Route::PUT('/profile/update', [AuthController::class, 'updateProfile'])->name('profile.update');
-Route::view('home', 'home')->name('home')->middleware(['auth', 'admin']);
-Route::resource('admins', AdminController::class)->middleware(['auth', 'admin']);
-Route::resource('users', UserController::class)->middleware(['auth', 'admin']);
-Route::resource('products', ProductController::class)->middleware(['auth', 'admin']);
+Route::view('home', 'home')->name('home')->middleware(['web', 'admin']);
+Route::resource('admins', AdminController::class)->middleware(['web', 'admin']);
+Route::resource('users', UserController::class)->middleware(['web', 'admin']);
+Route::resource('products', ProductController::class)->middleware(['web', 'admin']);
+Route::post('products/bulk-delete', [ProductController::class, 'bulkDelete'])->name('products.bulk-delete');
+Route::post('products/excel', [ProductController::class, 'excelProduct'])->middleware(['web', 'admin'])->name('products.store.excel');
 Route::get('/settings', [SettingController::class, 'index'])->name('settings');
 Route::post('/seetings', [SettingController::class, 'update'])->name('settings.update');
 Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');

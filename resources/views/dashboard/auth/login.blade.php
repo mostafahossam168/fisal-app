@@ -9,6 +9,12 @@
     {{-- Style Here --}}
     @vite(['resources/scss/light/assets/authentication/auth-cover.scss'])
     @vite(['resources/scss/dark/assets/authentication/auth-cover.scss'])
+
+    <style>
+        .auth-overlay {
+            background-image: linear-gradient(-225deg, #2c96bb, #1b107a 29%, #13a8ffbf) !important;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -28,11 +34,11 @@
 
                         <div class="position-relative">
 
-                            <img src="{{ Vite::asset('resources/images/auth-cover.svg') }}" alt="auth-img">
+                            <img src="{{ asset('build/assets/216545412.png') }}" alt="auth-img">
 
-                            <h2 class="mt-5 text-white font-weight-bolder px-2">Join the community of expert developers</h2>
-                            <p class="text-white px-2">It is easy to setup with great customer experience. Start your 7-day
-                                free trial</p>
+                            <h2 class="mt-5 text-white font-weight-bolder px-2">مرحبا بكم</h2>
+                            {{-- <p class="text-white px-2">It is easy to setup with great customer experience. Start your 7-day
+                                free trial</p> --}}
                         </div>
 
                     </div>
@@ -42,7 +48,7 @@
                 <div
                     class="col-xxl-4 col-xl-5 col-lg-5 col-md-8 col-12 d-flex flex-column align-self-center ms-lg-auto me-lg-0 mx-auto">
                     <div class="card">
-                        <form action="{{ route('login') }}" method="post">
+                        <form action="{{ route('login.submit') }}" method="post">
                             @csrf
 
                             <div class="card-body">
@@ -77,7 +83,7 @@
                                         <div class="mb-3">
                                             <div class="form-check form-check-primary form-check-inline">
                                                 <input class="form-check-input me-3" type="checkbox" id="form-check-default"
-                                                    name="remember">
+                                                    name="remember" value="1">
                                                 <label class="form-check-label" for="form-check-default">
                                                     تذكرنى
                                                 </label>
@@ -87,7 +93,7 @@
 
                                     <div class="col-12">
                                         <div class="mb-4">
-                                            <button class="btn btn-secondary w-100" type="submit">تسجيل الدخول</button>
+                                            <button class="btn btn-primary w-100" type="submit">تسجيل الدخول</button>
                                         </div>
                                     </div>
 

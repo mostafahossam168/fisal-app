@@ -7,14 +7,12 @@
         <ul class="navbar-item theme-brand flex-row  text-center">
             <li class="nav-item theme-logo">
                 <a href="{{ route('home') }}">
-                    <img src="{{ Vite::asset('resources/images/logo.svg') }}" class="logo-light navbar-logo-g"
-                        alt="logo">
-                    <img src="{{ Vite::asset('resources/images/logo.svg') }}" class="logo-dark navbar-logo-g"
-                        alt="logo">
+                    <img src="{{ asset('build/assets/216545412.png') }}" class="logo-light navbar-logo-g" alt="logo">
+                    <img src="{{ asset('build/assets/216545412.png') }}" class="logo-dark navbar-logo-g" alt="logo">
                 </a>
             </li>
             <li class="nav-item theme-text">
-                <a href="{{ route('home') }}" class="nav-link"> App </a>
+                <a href="{{ route('home') }}" class="nav-link"> {{ setting('website_name') }} </a>
             </li>
         </ul>
 

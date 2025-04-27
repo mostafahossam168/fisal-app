@@ -11,4 +11,5 @@ interface ProductInterface
     public function edit($id);
     public function update($data, $id);
     public function destroy($id);
+    public function bulkDelete($ids);
 }

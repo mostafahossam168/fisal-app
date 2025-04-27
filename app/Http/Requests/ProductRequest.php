@@ -27,22 +27,25 @@ class ProductRequest extends FormRequest
                         'name' => 'required|max:255|string',
                         'user_id' => 'required|exists:users,id',
                         'price' => 'required|numeric',
+                        'barcode' => 'required|numeric',
                         'status' => 'required|boolean',
-                        'image' => 'required|image',
-                        'description' => 'required',
+                        'image' => 'nullable|image',
+                        'certificate' => 'nullable|mimes:pdf',
+                        'description' => 'nullable',
                     ];
                 }
             case 'PUT':
             case 'PATCH': {
 
                     return [
-                        // 'email' => 'required|max:255|email|unique:users,email,' . $this->route()->product,
                         'name' => 'required|max:255|string',
                         'user_id' => 'required|exists:users,id',
                         'price' => 'required|numeric',
+                        'barcode' => 'required|numeric',
                         'status' => 'required|boolean',
                         'image' => 'nullable|image',
-                        'description' => 'required',
+                        'certificate' => 'nullable|mimes:pdf',
+                        'description' => 'nullable',
                     ];
                 }
             default:

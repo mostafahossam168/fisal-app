@@ -94,12 +94,22 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="password">الصورة</label>
-                                                                    <img src="{{ display_file($item->image) }}"
-                                                                        class="d-block mb-3" alt="" srcset=""
-                                                                        style="width:150px;height:150px;">
-                                                                    @error('image')
-                                                                        <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
+                                                                    @if ($item->image)
+                                                                        <img src="{{ display_file($item->image) }}"
+                                                                            class="d-block mb-3" alt=""
+                                                                            srcset=""
+                                                                            style="width:150px;height:150px;">
+                                                                    @endif
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="password" class="d-block">الشهادة</label>
+                                                                    @if ($item->certificate)
+                                                                        <a href="{{ display_file($item->certificate) }}"
+                                                                            download class='btn btn-primary '>تحميل</a>
+                                                                    @endif
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
