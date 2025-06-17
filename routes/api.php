@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\SettingController;
+use App\Http\Controllers\Api\WishlistController;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Route;
@@ -32,3 +34,19 @@ Route::group(
 
 Route::get('/notifications', [NotificationController::class, 'index'])->middleware('auth:api');
 Route::get('/settings', [SettingController::class, 'index'])->middleware('auth:api');
+Route::get('/home', [HomeController::class, 'index']);
+Route::group(
+    ['controller' => ProductController::class, 'prefix' => 'products'],
+    function () {
+        Route::get('/', 'index')->middleware('auth:api');
+        Route::get('/show/{id}', 'show')->middleware('auth:api');
+    }
+);
+Route::group(
+    ['controller' => WishlistController::class, 'prefix' => 'wishlist'],
+    function () {
+        Route::get('/', 'index');
+        Route::post('/add/{id}', 'addToWishlist');
+        Route::post('/remove/{id}', 'removeWishlist');
+    }
+);

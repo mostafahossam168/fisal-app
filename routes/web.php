@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\AuthController;
 use App\Http\Controllers\Dashboard\AdminController;
+use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\MessageController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\SettingController;
@@ -17,6 +18,7 @@ Route::PUT('/profile/update', [AuthController::class, 'updateProfile'])->name('p
 Route::view('home', 'home')->name('home')->middleware(['web', 'admin']);
 Route::resource('admins', AdminController::class)->middleware(['web', 'admin']);
 Route::resource('users', UserController::class)->middleware(['web', 'admin']);
+Route::resource('categories', CategoryController::class);
 Route::resource('products', ProductController::class)->middleware(['web', 'admin']);
 Route::post('products/bulk-delete', [ProductController::class, 'bulkDelete'])->name('products.bulk-delete');
 Route::post('products/excel', [ProductController::class, 'excelProduct'])->middleware(['web', 'admin'])->name('products.store.excel');

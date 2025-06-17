@@ -207,7 +207,10 @@
                                         <div class="th-content">المستخدم</div>
                                     </th>
                                     <th>
-                                        <div class="th-content th-heading">السعر</div>
+                                        <div class="th-content th-heading">رقم المنتج</div>
+                                    </th>
+                                    <th>
+                                        <div class="th-content">التصنيف</div>
                                     </th>
                                     <th>
                                         <div class="th-content">الحالة</div>
@@ -229,7 +232,13 @@
 
                                         <td>
                                             <div class="td-content pricing"><span
-                                                    class="">{{ $item->price }}</span></div>
+                                                    class="">{{ $item->product_number }}</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="td-content pricing"><span
+                                                    class="">{{ $item->category->name }}</span>
+                                            </div>
                                         </td>
 
                                         <td>

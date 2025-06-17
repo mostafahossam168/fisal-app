@@ -20,7 +20,7 @@ class Productrepository implements ProductInterface
             })
             ->when($request->filled('search'), function ($q) use ($request) {
                 $q->where('name', 'LIKE', '%' . $request->search . '%')
-                    ->orWhere('price', 'LIKE', '%' . $request->search . '%')
+                    ->orWhere('product_number', 'LIKE', '%' . $request->search . '%')
                     ->orWhere('barcode', 'LIKE', '%' . $request->search . '%');
             })
             ->latest()

@@ -74,7 +74,20 @@
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
     @yield('styles')
     <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
+    <script src="https://js.pusher.com/8.4.0/pusher.min.js"></script>
+    <script>
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
 
+        var pusher = new Pusher("{{ env('PUSHER_APP_KEY') }}", {
+            cluster: "{{ env('PUSHER_APP_CLUSTER') }}"
+        });
+
+        var channel = pusher.subscribe('fisal-app');
+        channel.bind('product-event', function(data) {
+            alert(JSON.stringify(data));
+        });
+    </script>
 </head>
 
 <body

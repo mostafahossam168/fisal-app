@@ -58,11 +58,12 @@
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label for="price"> السعر</label>
+                                                                    <label for="product_number"> رقم المنتج</label>
                                                                     <input type="text" class="form-control mb-3"
-                                                                        name="price" id="price" placeholder=" السعر"
-                                                                        value="{{ old('price') }}">
-                                                                    @error('price')
+                                                                        name="product_number" id="product_number"
+                                                                        placeholder=" رقم المنتج"
+                                                                        value="{{ old('product_number') }}">
+                                                                    @error('product_number')
                                                                         <span class="text-danger">{{ $message }}</span>
                                                                     @enderror
                                                                 </div>
@@ -81,6 +82,23 @@
                                                                         @endforeach
                                                                     </select>
                                                                     @error('user_id')
+                                                                        <span class="text-danger">{{ $message }}</span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="category_id">التصنيف</label>
+                                                                    <select name="category_id" id="category_id"
+                                                                        class="form-control">
+                                                                        <option value="">اختر التصنيف</option>
+                                                                        @foreach (App\Models\Category::active()->pluck('id', 'name') as $name => $id)
+                                                                            <option @selected(old('category_id') && old('category_id') == $id)
+                                                                                value="{{ $id }}">
+                                                                                {{ $name }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                    @error('category_id')
                                                                         <span class="text-danger">{{ $message }}</span>
                                                                     @enderror
                                                                 </div>
@@ -125,17 +143,6 @@
                                                                     @enderror
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <label for="description">الوصف</label>
-
-
-                                                                    <textarea name="description" class="form-control mb-3" id="" cols="30" rows="10">{{ old('description') }}</textarea>
-                                                                    @error('description')
-                                                                        <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
                                                             <div class="col-md-12 mt-1">
                                                                 <div class="form-group text-end">
                                                                     <button class="btn btn-secondary"
@@ -166,9 +173,6 @@
                                                 <div class=" col-lg-12 col-md-8 mt-md-0 mt-4">
                                                     <div class="form">
                                                         <div class="row">
-
-
-
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
                                                                     <label for="phone">المستخدم</label>

@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -27,8 +28,8 @@ class ProductImport implements ToModel, WithStartRow
             'user_id' => $this->user_id,
             'name' => $row[0],
             'barcode' => $row[1],
-            'price' => $row[2],
-            'description' => $row[3],
+            'product_number' => $row[2],
+            'category_id' => Category::where('name', $row[3])->first()->id ?? Category::first()->id,
             'status' => 1,
         ]);
     }

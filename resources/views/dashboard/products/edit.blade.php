@@ -48,15 +48,17 @@
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label for="price"> السعر</label>
+                                                                    <label for="product_number"> رقم المنتج</label>
                                                                     <input type="text" class="form-control mb-3"
-                                                                        name="price" id="price" placeholder=" السعر"
-                                                                        value="{{ $item->price }}">
-                                                                    @error('price')
+                                                                        name="product_number" id="product_number"
+                                                                        placeholder=" رقم المنتج"
+                                                                        value="{{ $item->product_number }}">
+                                                                    @error('product_number')
                                                                         <span class="text-danger">{{ $message }}</span>
                                                                     @enderror
                                                                 </div>
                                                             </div>
+
 
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
@@ -75,7 +77,6 @@
                                                                     <label for="phone">المستخدم</label>
                                                                     <select name="user_id" id=""
                                                                         class="form-control">
-                                                                        <option value="">اختر المستخدم</option>
                                                                         @foreach (App\Models\User::users()->active()->pluck('id', 'name') as $name => $id)
                                                                             <option @selected($item->user_id == $id)
                                                                                 value="{{ $id }}">
@@ -87,6 +88,24 @@
                                                                     @enderror
                                                                 </div>
                                                             </div>
+
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="category_id">التصنيف</label>
+                                                                    <select name="category_id" id="category_id"
+                                                                        class="form-control">
+                                                                        @foreach (App\Models\Category::active()->pluck('id', 'name') as $name => $id)
+                                                                            <option @selected($item->category_id == $id)
+                                                                                value="{{ $id }}">
+                                                                                {{ $name }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                    @error('category_id')
+                                                                        <span class="text-danger">{{ $message }}</span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+
 
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
@@ -123,18 +142,6 @@
                                                                         name="certificate" accept="application\pdf" />
                                                                     <span class="text-danger">pdf only</span>
                                                                     @error('certificate')
-                                                                        <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <label for="description">الوصف</label>
-
-
-                                                                    <textarea name="description" class="form-control mb-3" id="" cols="30" rows="10">{{ $item->description }}</textarea>
-                                                                    @error('description')
                                                                         <span class="text-danger">{{ $message }}</span>
                                                                     @enderror
                                                                 </div>

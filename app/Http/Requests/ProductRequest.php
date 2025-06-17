@@ -26,12 +26,12 @@ class ProductRequest extends FormRequest
                     return [
                         'name' => 'required|max:255|string',
                         'user_id' => 'required|exists:users,id',
-                        'price' => 'required|numeric',
+                        'category_id' => 'required|exists:categories,id',
+                        'product_number' => 'required|numeric',
                         'barcode' => 'required|numeric',
                         'status' => 'required|boolean',
                         'image' => 'nullable|image',
                         'certificate' => 'nullable|mimes:pdf',
-                        'description' => 'nullable',
                     ];
                 }
             case 'PUT':
@@ -40,12 +40,12 @@ class ProductRequest extends FormRequest
                     return [
                         'name' => 'required|max:255|string',
                         'user_id' => 'required|exists:users,id',
-                        'price' => 'required|numeric',
+                        'category_id' => 'required|exists:categories,id',
+                        'product_number' => 'required|numeric',
                         'barcode' => 'required|numeric',
                         'status' => 'required|boolean',
                         'image' => 'nullable|image',
                         'certificate' => 'nullable|mimes:pdf',
-                        'description' => 'nullable',
                     ];
                 }
             default:

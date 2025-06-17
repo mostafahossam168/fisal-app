@@ -15,13 +15,13 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('name');
-            $table->decimal('price', 8, 2);
+            $table->bigInteger('product_number');
             $table->bigInteger('barcode');
             $table->string('image')->nullable();
             $table->string('certificate')->nullable();
             $table->tinyInteger('status')->default(StatusProduct::ACTIVE->value);
-            $table->longText('description');
             $table->timestamps();
         });
     }

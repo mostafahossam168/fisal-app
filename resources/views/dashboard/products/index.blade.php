@@ -103,10 +103,11 @@
                             </th>
                             <th>#</th>
                             <th>الاسم</th>
+                            <th>رقم المنتح</th>
                             <th>الباركود</th>
                             <th>الصوره</th>
                             <th>الشهادة</th>
-                            <th>السعر</th>
+                            <th>التصنيف</th>
                             <th>الحالة</th>
                             <th>المستخدم</th>
                             <th>تاريخ الانشاء</th>
@@ -124,9 +125,10 @@
                                 </td>
                                 <td>
                                     <div class="d-flex">
-
                                         <p class="align-self-center mb-0 user-name">{{ $item->name }} </p>
                                     </div>
+                                </td>
+                                <td>{{ $item->product_number }}
                                 </td>
                                 <td> {!! DNS1D::getBarcodeHTML($item->barcode . '', 'C128') !!}
                                     {{ $item->barcode }}
@@ -150,7 +152,7 @@
                                     @endif
                                 </td>
 
-                                <td>{{ $item->price }}
+                                <td>{{ $item->category->name }}
                                 <td>
                                     <span class="badge {{ $item->status->color() }} ">{{ $item->status->name() }}</span>
                                 </td>

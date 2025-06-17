@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Events\ProductEvent;
 use Illuminate\Http\Request;
 use App\Imports\ImportProduct;
 use App\Imports\ProductImport;
@@ -9,6 +10,8 @@ use Illuminate\Routing\Controller;
 use App\Interfaces\ProductInterface;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\ProductRequest;
+use App\Mail\NewProductMail;
+use Illuminate\Support\Facades\Mail;
 
 class ProductController extends Controller
 {
@@ -59,7 +62,9 @@ class ProductController extends Controller
         $data = $request->validated();
         $data['image'] = $request->image ? store_file($request->image, 'products') : null;
         $data['certificate'] = $request->certificate ? store_file($request->certificate, 'certificates') : null;
-        $this->item->store($data);
+        $product = $this->item->store($data);
+        // Mail::to($product->user->email)->send(new NewProductMail($product));
+        // event(new ProductEvent($product));
         return   redirect()->route('products.index')->with('success', 'تم حفظ البيانات بنجاح');
     }
 

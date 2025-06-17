@@ -44,17 +44,18 @@
                                                                     @enderror
                                                                 </div>
                                                             </div>
+
+
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label for="price"> السعر</label>
+                                                                    <label for="product_number"> رقم المنتج</label>
                                                                     <input type="text" class="form-control mb-3"
-                                                                        name="price" id="price" placeholder=" السعر"
-                                                                        disabled value="{{ $item->price }}">
-                                                                    @error('price')
-                                                                        <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
+                                                                        name="product_number" id="product_number"
+                                                                        placeholder=" رقم المنتج" disabled
+                                                                        value="{{ $item->product_number }}">
                                                                 </div>
                                                             </div>
+
 
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
@@ -68,12 +69,24 @@
                                                                                 {{ $name }}</option>
                                                                         @endforeach
                                                                     </select>
-                                                                    @error('user_id')
-                                                                        <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
                                                                 </div>
                                                             </div>
 
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="category_id">التصنيف</label>
+                                                                    <select name="category_id" id="category_id" disabled
+                                                                        class="form-control">
+
+                                                                        @foreach (App\Models\Category::active()->pluck('id', 'name') as $name => $id)
+                                                                            <option @selected(old('category_id') && old('category_id') == $id)
+                                                                                value="{{ $id }}">
+                                                                                {{ $name }}</option>
+                                                                        @endforeach
+                                                                    </select>
+
+                                                                </div>
+                                                            </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="status">الحالة</label>
@@ -85,12 +98,15 @@
                                                                         <option value="0" @selected($item->status->value == 0)>
                                                                             غير مفعل</option>
                                                                     </select>
-                                                                    @error('status')
-                                                                        <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
                                                                 </div>
                                                             </div>
 
+                                                            <div class="col-md-6 my-3">
+                                                                <div class="form-group">
+                                                                    <label for="password">الباركود</label>
+                                                                    {!! DNS1D::getBarcodeHTML($item->barcode . '', 'C128') !!}
+                                                                </div>
+                                                            </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="password">الصورة</label>
@@ -112,17 +128,8 @@
                                                                     @endif
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <label for="description">الوصف</label>
 
 
-                                                                    <textarea name="description" class="form-control mb-3" id="" cols="30" rows="10" disabled>{{ $item->description }}</textarea>
-                                                                    @error('description')
-                                                                        <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
                                                         </div>
 
                                                     </div>
